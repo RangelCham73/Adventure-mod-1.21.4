@@ -1,10 +1,11 @@
 package com.rangelcham.adventuremod;
 
-import com.mojang.logging.LogUtils;
-import com.rangelcham.adventuremod.client.KeybindHandler;
-import com.rangelcham.adventuremod.item.ModBlocks;
-import com.rangelcham.adventuremod.item.ModCreativeModeTabs;
-import com.rangelcham.adventuremod.item.ModItems;
+import com.rangelcham.adventuremod.custom.ModCreativeTab;
+import com.rangelcham.adventuremod.custom.block.ModBlocks;
+import com.rangelcham.adventuremod.custom.effect.ModEffects;
+import com.rangelcham.adventuremod.custom.item.ModItems;
+import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,7 +18,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import org.slf4j.Logger;
 
 //
 //Author: RangelCham73
@@ -27,30 +27,36 @@ import org.slf4j.Logger;
 public class AdventureMod
 {
     public static final String MODID = "adventuremod";
-    private static final Logger LOGGER = LogUtils.getLogger();
 
-    public AdventureMod(IEventBus modEventBus, Dist dist, ModContainer modContainer)
+    public AdventureMod(IEventBus modEventBus, ModContainer modContainer)
     {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
-
-        ModCreativeModeTabs.register(modEventBus);
+        NeoForge.EVENT_BUS.register(DoubleJumpHandler.class); // Registramos el doble salto
 
         ModItems.register(modEventBus);
-        ModBlocks.register(modEventBus);
+//        ModBlocks.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
-        modEventBus.addListener(KeybindHandler::registerKeyMappings);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        KeybindHandler.register();
+
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(ModItems.DOUBLEJUMP_CRYSTAL);
+            event.accept(ModItems.DASH_CRYSTAL);
+        }
 
+//        if(event.getTabKey() == CreativeModeTabs.COLORED_BLOCKS) {
+//            event.accept(ModItems.GREENCRYSTAL_BLOCK_ITEM);
+//            event.accept(ModItems.BLUECRYSTAL_BLOCK_ITEM);
+//        }
     }
 
     @SubscribeEvent
