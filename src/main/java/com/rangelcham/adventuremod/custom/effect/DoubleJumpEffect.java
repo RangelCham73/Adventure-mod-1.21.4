@@ -4,6 +4,7 @@ import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
 import com.rangelcham.adventuremod.nbt.PlayerAbilityHandler;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,7 +17,10 @@ public class DoubleJumpEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
-        DoubleJumpHandler.unlockedDoubleJump = true;
+        if (entity instanceof Player player) {
+            DoubleJumpHandler.unlockedDoubleJump = true;
+            PlayerAbilityHandler.saveAbilities(player);
+        }
         return super.applyEffectTick(level, entity, amplifier);
     }
 

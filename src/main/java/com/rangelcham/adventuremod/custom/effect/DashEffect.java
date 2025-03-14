@@ -5,6 +5,7 @@ import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
 import com.rangelcham.adventuremod.nbt.PlayerAbilityHandler;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +18,10 @@ public class DashEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
-        DashHandler.unlockedDash = true;
+        if (entity instanceof Player player) {
+            DashHandler.unlockedDash = true;
+            PlayerAbilityHandler.saveAbilities(player);
+        }
         return super.applyEffectTick(level, entity, amplifier);
     }
 

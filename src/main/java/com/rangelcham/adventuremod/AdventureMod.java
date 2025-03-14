@@ -33,9 +33,6 @@ public class AdventureMod
     {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
-        NeoForge.EVENT_BUS.register(DoubleJumpHandler.class);
-        NeoForge.EVENT_BUS.register(DashHandler.class);
-        NeoForge.EVENT_BUS.register(PlayerEventHandler.class);
 
         ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
