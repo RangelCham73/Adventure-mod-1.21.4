@@ -44,27 +44,27 @@ public class DoubleJumpHandler {
             }
 
             if (canDoubleJump && jumpReleased && Minecraft.getInstance().options.keyJump.isDown()) {
-                Vec3 motion = player.getDeltaMovement();
-                player.setDeltaMovement(motion.x, 0.6, motion.z); // Aplica impulso hacia arriba
-
-                // Reproducir sonido
-                player.playSound(SoundEvents.AMETHYST_BLOCK_BREAK, 1.0F, 1.0F);
-
-                // Generar partículas
-                for (int i = 0; i < 10; i++) {
-                    player.level().addParticle(ParticleTypes.END_ROD,
-                            player.getX(), player.getY(), player.getZ(),
-                            (Math.random() - 0.5) * 0.2, 0.2, (Math.random() - 0.5) * 0.2);
-                    player.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.AMETHYST_CLUSTER.defaultBlockState()),
-                            player.getX(), player.getY(), player.getZ(),
-                            (Math.random() - 0.5) * 0.2, 0.2, (Math.random() - 0.5) * 0.2);
-                }
-
-                player.fallDistance = 0.0F; // Intenta resetear caída inmediatamente
-                preventFallDamage = true; // Marcamos que debe resetearse al aterrizar
+                performDoubleJump(player);
+                player.fallDistance = 0.0F;
+                preventFallDamage = true;
                 canDoubleJump = false;
-                player.displayClientMessage(Component.literal("Doble Salto!"), true);
             }
+        }
+    }
+
+    public static void performDoubleJump(LocalPlayer player) {
+        Vec3 motion = player.getDeltaMovement();
+        player.setDeltaMovement(motion.x, 0.6, motion.z);
+
+        player.playSound(SoundEvents.AMETHYST_BLOCK_BREAK, 1.0F, 1.0F);
+
+        for (int i = 0; i < 25; i++) {
+            player.level().addParticle(ParticleTypes.END_ROD,
+                    player.getX(), player.getY(), player.getZ(),
+                    (Math.random() - 0.5) * 0.2, 0.2, (Math.random() - 0.5) * 0.2);
+            player.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.AMETHYST_CLUSTER.defaultBlockState()),
+                    player.getX(), player.getY(), player.getZ(),
+                    (Math.random() - 0.5) * 0.2, 0.2, (Math.random() - 0.5) * 0.2);
         }
     }
 

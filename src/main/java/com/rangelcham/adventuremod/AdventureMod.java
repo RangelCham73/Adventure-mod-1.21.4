@@ -1,10 +1,11 @@
 package com.rangelcham.adventuremod;
 
-import com.rangelcham.adventuremod.custom.ModCreativeTab;
-import com.rangelcham.adventuremod.custom.block.ModBlocks;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
 import com.rangelcham.adventuremod.custom.item.ModItems;
+import com.rangelcham.adventuremod.dash.DashHandler;
+import com.rangelcham.adventuremod.dash.DashKeybind;
 import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
+import com.rangelcham.adventuremod.nbt.PlayerEventHandler;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -32,12 +33,15 @@ public class AdventureMod
     {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
-        NeoForge.EVENT_BUS.register(DoubleJumpHandler.class); // Registramos el doble salto
+        NeoForge.EVENT_BUS.register(DoubleJumpHandler.class);
+        NeoForge.EVENT_BUS.register(DashHandler.class);
+        NeoForge.EVENT_BUS.register(PlayerEventHandler.class);
 
+        ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
 //        ModBlocks.register(modEventBus);
-        ModEffects.register(modEventBus);
 
+        modEventBus.addListener(DashKeybind::register);
         modEventBus.addListener(this::addCreative);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

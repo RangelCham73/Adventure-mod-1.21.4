@@ -1,4 +1,7 @@
 {
   "item.adventuremod.jcrystal": "Cristal de salto",
-  "item.adventuremod.dcrystal": "Cristal de rapidez"
+  "item.adventuremod.dcrystal": "Cristal de rapidez",
+
+  "key.adventuremod.dash_action": "Dash",
+  "key.categories.adventuremod": "Mod"
 }
