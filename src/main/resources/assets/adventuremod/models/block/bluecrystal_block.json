@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "adventuremod:block/bluecrystal_block"
+  }
+}
