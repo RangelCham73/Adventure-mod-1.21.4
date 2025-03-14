@@ -33,7 +33,7 @@ public class ModItems {
                             .soundAfterConsume(SoundEvents.BREEZE_WIND_CHARGE_BURST)
                             .hasConsumeParticles(false)
                             .onConsume(
-                                new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(ModEffects.DOUBLEJUMP_EFFECT, 1, 0), 0.3F)
+                                new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(ModEffects.DOUBLEJUMP_EFFECT, 1, 0))
                             )
                             .build()
                     )
@@ -53,7 +53,7 @@ public class ModItems {
                             .soundAfterConsume(SoundEvents.BREEZE_WIND_CHARGE_BURST)
                             .hasConsumeParticles(false)
                             .onConsume(
-                                    new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(ModEffects.DASH_EFFECT, 1, 0), 0.3F)
+                                    new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(ModEffects.DASH_EFFECT, 1, 0))
                             )
                             .build()
                     )

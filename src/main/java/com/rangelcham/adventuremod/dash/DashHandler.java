@@ -1,5 +1,6 @@
 package com.rangelcham.adventuremod.dash;
 
+import com.rangelcham.adventuremod.AdventureMod;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -7,8 +8,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+@EventBusSubscriber(modid = AdventureMod.MODID)
 public class DashHandler {
     private static final int DASH_COOLDOWN_TICKS = 40; // 2 segundos (40 ticks)
     private static int dashCooldown = 0;
