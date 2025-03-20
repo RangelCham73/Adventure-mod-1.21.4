@@ -1,6 +1,7 @@
 package com.rangelcham.adventuremod.custom.item;
 
 import com.rangelcham.adventuremod.AdventureMod;
+import com.rangelcham.adventuremod.custom.block.ModBlocks;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.Consumable;
@@ -60,15 +62,14 @@ public class ModItems {
             )
     );
 
-//    public static final DeferredItem<Item> GREENCRYSTAL_BLOCK_ITEM = ITEMS.register(
-//            "dcrystal",
-//            () -> new BlockItem(ModBlocks.GREEN_CRYSTAL.get(), new Item.Properties()
-//                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse("adventuremod:greencrystal_block")))));
-//
-//    public static final DeferredItem<Item> BLUECRYSTAL_BLOCK_ITEM = ITEMS.register(
-//            "dcrystal",
-//            () -> new BlockItem(ModBlocks.BLUE_CRYSTAL.get(), new Item.Properties()
-//                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse("adventuremod:bluecrystal_block")))));
+    public static final DeferredItem<Item> BLUECRYSTAL_BLOCK_ITEM = ITEMS.register("bluecrystal_block",
+            () -> new BlockItem(ModBlocks.BLUE_CRYSTAL.get(), new Item.Properties()
+                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(AdventureMod.MODID+ ":bluecrystal_block")))));
+
+    public static final DeferredItem<Item> GREENCRYSTAL_BLOCK_ITEM = ITEMS.register("greencrystal_block",
+            () -> new BlockItem(ModBlocks.GREEN_CRYSTAL.get(), new Item.Properties()
+                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(AdventureMod.MODID+ ":greencrystal_block")))));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

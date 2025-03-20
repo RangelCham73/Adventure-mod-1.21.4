@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -19,14 +20,17 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(AdventureMod.MODID);
 
-    public static final DeferredBlock<Block> BLUE_CRYSTAL = registerBlock("bluecrystal_block",
+    // Registro de bloques individuales
+    public static final DeferredBlock<Block> BLUE_CRYSTAL = BLOCKS.register("bluecrystal_block",
             () -> new Block(BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(AdventureMod.MODID+ ":bluecrystal_block")))
+                    .strength(3.0f)
                     .sound(SoundType.AMETHYST)));
 
-    public static final DeferredBlock<Block> GREEN_CRYSTAL = registerBlock("greencrystal_block",
+    public static final DeferredBlock<Block> GREEN_CRYSTAL = BLOCKS.register("greencrystal_block",
             () -> new Block(BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(AdventureMod.MODID+ ":greencrystal_block")))
+                    .strength(3.0f)
                     .sound(SoundType.AMETHYST)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
