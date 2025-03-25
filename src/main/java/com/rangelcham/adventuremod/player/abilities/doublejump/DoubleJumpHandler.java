@@ -1,11 +1,10 @@
-package com.rangelcham.adventuremod.doublejump;
+package com.rangelcham.adventuremod.player.abilities.doublejump;
 
 import com.rangelcham.adventuremod.AdventureMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;

@@ -1,4 +1,4 @@
-package com.rangelcham.adventuremod.dash;
+package com.rangelcham.adventuremod.player.abilities.dash;
 
 import net.minecraft.client.KeyMapping;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;

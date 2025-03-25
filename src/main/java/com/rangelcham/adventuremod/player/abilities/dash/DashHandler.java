@@ -1,4 +1,4 @@
-package com.rangelcham.adventuremod.dash;
+package com.rangelcham.adventuremod.player.abilities.dash;
 
 import com.rangelcham.adventuremod.AdventureMod;
 import net.minecraft.client.player.LocalPlayer;

@@ -1,14 +1,11 @@
 package com.rangelcham.adventuremod.nbt;
 
 
-import com.llamalad7.mixinextras.sugar.Local;
-import com.rangelcham.adventuremod.dash.DashHandler;
-import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
+import com.rangelcham.adventuremod.player.abilities.dash.DashHandler;
+import com.rangelcham.adventuremod.player.abilities.doublejump.DoubleJumpHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class PlayerAbilityHandler {
@@ -19,7 +16,7 @@ public class PlayerAbilityHandler {
 
     public static void saveAbilities(Player player) {
         CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
+        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
         CompoundTag abilityTag = new CompoundTag();
         abilityTag.putBoolean("hasDoubleJump", DoubleJumpHandler.unlockedDoubleJump);
         abilityTag.putBoolean("hasDash", DashHandler.unlockedDash);

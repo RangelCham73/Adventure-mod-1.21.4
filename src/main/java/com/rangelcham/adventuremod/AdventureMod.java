@@ -1,11 +1,9 @@
 package com.rangelcham.adventuremod;
 
+import com.rangelcham.adventuremod.custom.commands.QuestCommand;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
 import com.rangelcham.adventuremod.custom.item.ModItems;
-import com.rangelcham.adventuremod.dash.DashHandler;
-import com.rangelcham.adventuremod.dash.DashKeybind;
-import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
-import com.rangelcham.adventuremod.nbt.PlayerEventHandler;
+import com.rangelcham.adventuremod.player.abilities.dash.DashKeybind;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -18,6 +16,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 //
@@ -69,6 +68,11 @@ public class AdventureMod
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+        }
+
+        @SubscribeEvent
+        public static void registerCommands(RegisterCommandsEvent event) {
+            QuestCommand.register(event.getDispatcher());
         }
     }
 }
