@@ -1,6 +1,8 @@
 package com.rangelcham.adventuremod;
 
 import com.rangelcham.adventuremod.custom.commands.QuestCommand;
+import com.rangelcham.adventuremod.custom.ModCreativeTab;
+import com.rangelcham.adventuremod.custom.block.ModBlocks;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
 import com.rangelcham.adventuremod.custom.item.ModItems;
 import com.rangelcham.adventuremod.player.abilities.dash.DashKeybind;
@@ -35,7 +37,8 @@ public class AdventureMod
 
         ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
-//        ModBlocks.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModCreativeTab.register(modEventBus);
 
         modEventBus.addListener(DashKeybind::register);
         modEventBus.addListener(this::addCreative);
@@ -48,15 +51,6 @@ public class AdventureMod
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.COMBAT) {
-            event.accept(ModItems.DOUBLEJUMP_CRYSTAL);
-            event.accept(ModItems.DASH_CRYSTAL);
-        }
-
-//        if(event.getTabKey() == CreativeModeTabs.COLORED_BLOCKS) {
-//            event.accept(ModItems.GREENCRYSTAL_BLOCK_ITEM);
-//            event.accept(ModItems.BLUECRYSTAL_BLOCK_ITEM);
-//        }
     }
 
     @SubscribeEvent
