@@ -2,7 +2,7 @@ package com.rangelcham.adventuremod.player;
 
 import com.rangelcham.adventuremod.player.stats.PlayerStats;
 
-public class Player {
+public class ModPlayer {
     public int level;
     public int statPoints;
     public int usedStatPoints;

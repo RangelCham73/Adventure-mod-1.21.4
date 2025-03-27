@@ -16,7 +16,7 @@ public class PlayerAbilityHandler {
 
     public static void saveAbilities(Player player) {
         CompoundTag tag = player.getPersistentData();
-        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
+//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
         CompoundTag abilityTag = new CompoundTag();
         abilityTag.putBoolean("hasDoubleJump", DoubleJumpHandler.unlockedDoubleJump);
         abilityTag.putBoolean("hasDash", DashHandler.unlockedDash);
