@@ -1,8 +1,5 @@
 package com.rangelcham.adventuremod;
 
-import com.mojang.brigadier.CommandDispatcher;
-import com.rangelcham.adventuremod.custom.commands.ModCommands;
-import com.rangelcham.adventuremod.custom.commands.QuestCommand;
 import com.rangelcham.adventuremod.custom.ModCreativeTab;
 import com.rangelcham.adventuremod.custom.block.ModBlocks;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
@@ -12,7 +9,6 @@ import com.rangelcham.adventuremod.quests.QuestKeyBind;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -23,7 +19,6 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 //
@@ -50,7 +45,6 @@ public class AdventureMod
         modEventBus.addListener(this::addCreative);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-        new ModCommands();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

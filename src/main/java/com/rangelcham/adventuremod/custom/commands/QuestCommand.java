@@ -28,9 +28,7 @@ public class QuestCommand {
         );
     }
     private static int execute(CommandSourceStack command, int id, int step) {
-        if(command.getEntity() instanceof Player){
-            Minecraft.getInstance().gui.getChat().addMessage(Component.literal(id + " " + step));
-        }
+        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(id + " " + step));
         return Command.SINGLE_SUCCESS;
     }
 }
