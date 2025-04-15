@@ -22,24 +22,28 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void onPlayerJoin(EntityJoinLevelEvent event) {
         if ((event.getEntity() instanceof ServerPlayer player)) {
-//            Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Carga de datos en ServerPlayer")); // debug
             PlayerAbilityHandler.loadAbilities(player);
+            PlayerQuestHandler.loadQuests(player);
+            PlayerStatHandler.loadStats(player);
         }
-        if ((event.getEntity() instanceof LocalPlayer player)) {
-//            Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Carga de datos en LocalPlayer")); // debug
+        if ((event.getEntity() instanceof LocalPlayer player)) {// debug
             PlayerAbilityHandler.loadAbilities(player);
+            PlayerQuestHandler.loadQuests(player);
+            PlayerStatHandler.loadStats(player);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerLeave(EntityLeaveLevelEvent event) {
         if ((event.getEntity() instanceof LocalPlayer player)) {
-//            Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Guardar datos en LocalPlayer")); // debug
             PlayerAbilityHandler.saveAbilities(player);
+            PlayerQuestHandler.saveQuests(player);
+            PlayerStatHandler.loadStats(player);
         }
         if ((event.getEntity() instanceof ServerPlayer player)) {
-//            Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Guardar datos en ServerPlayer")); // debug
             PlayerAbilityHandler.saveAbilities(player);
+            PlayerQuestHandler.saveQuests(player);
+            PlayerStatHandler.loadStats(player);
         }
     }
 

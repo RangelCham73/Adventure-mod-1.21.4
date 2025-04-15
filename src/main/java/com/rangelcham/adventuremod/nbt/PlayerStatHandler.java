@@ -3,6 +3,7 @@ package com.rangelcham.adventuremod.nbt;
 import com.rangelcham.adventuremod.player.ModPlayer;
 import com.rangelcham.adventuremod.player.abilities.dash.DashHandler;
 import com.rangelcham.adventuremod.player.abilities.doublejump.DoubleJumpHandler;
+import com.rangelcham.adventuremod.player.stats.StatsHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -18,7 +19,6 @@ public class PlayerStatHandler {
 
     public static void saveStats(Player player, ModPlayer modPlayer) {
         CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
         CompoundTag statTag = new CompoundTag();
         statTag.putInt(STRENGTH_KEY, modPlayer.stats.strength);
         statTag.putInt(DEXTERITY_KEY, modPlayer.stats.dexterity);
@@ -26,62 +26,66 @@ public class PlayerStatHandler {
         statTag.putInt(INTELLIGENCE_KEY, modPlayer.stats.intelligence);
         statTag.putInt(WISDOM_KEY, modPlayer.stats.wisdom);
         tag.put(STATS_KEY, statTag);
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
-        player.getPersistentData().put("stats", statTag);
+        player.getPersistentData().put(STATS_KEY, statTag);
     }
 
-    public static int getStrength(Player player) {
+    public static void loadStats(Player player) {
         CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
         CompoundTag statTag = tag.getCompound(STATS_KEY);
+
+        // FUERZA
         if (statTag.contains(STRENGTH_KEY)) {
-            return statTag.getInt(STRENGTH_KEY);
+            StatsHandler.playerStats.strength = statTag.getInt(STRENGTH_KEY);
+            if (StatsHandler.playerStats.strength >= StatsHandler.playerStats.CAP_STAT) {
+                StatsHandler.playerStats.isMaxStrength = true;
+            }
         } else {
-            return 6;
+            StatsHandler.playerStats.strength = 6;
+            StatsHandler.playerStats.isMaxStrength = false;
         }
-    }
 
-    public static int getDexterity(Player player) {
-        CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
-        CompoundTag statTag = tag.getCompound(STATS_KEY);
+        // DESTREZA
         if (statTag.contains(DEXTERITY_KEY)) {
-            return statTag.getInt(DEXTERITY_KEY);
+            StatsHandler.playerStats.dexterity = statTag.getInt(DEXTERITY_KEY);
+            if (StatsHandler.playerStats.dexterity >= StatsHandler.playerStats.CAP_STAT) {
+                StatsHandler.playerStats.isMaxDexterity = true;
+            }
         } else {
-            return 6;
+            StatsHandler.playerStats.dexterity = 6;
+            StatsHandler.playerStats.isMaxDexterity = false;
         }
-    }
 
-    public static int getConstitution(Player player) {
-        CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
-        CompoundTag statTag = tag.getCompound(STATS_KEY);
+        // CONSTITUCION
         if (statTag.contains(CONSTITUTION_KEY)) {
-            return statTag.getInt(CONSTITUTION_KEY);
+            StatsHandler.playerStats.constitution = statTag.getInt(CONSTITUTION_KEY);
+            if (StatsHandler.playerStats.constitution >= StatsHandler.playerStats.CAP_STAT) {
+                StatsHandler.playerStats.isMaxConstitution = true;
+            }
         } else {
-            return 6;
+            StatsHandler.playerStats.constitution = 6;
+            StatsHandler.playerStats.isMaxConstitution = false;
         }
-    }
 
-    public static int getIntelligence(Player player) {
-        CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
-        CompoundTag statTag = tag.getCompound(STATS_KEY);
+        // INTELIGENCIA
         if (statTag.contains(INTELLIGENCE_KEY)) {
-            return statTag.getInt(INTELLIGENCE_KEY);
+            StatsHandler.playerStats.intelligence = statTag.getInt(INTELLIGENCE_KEY);
+            if (StatsHandler.playerStats.intelligence >= StatsHandler.playerStats.CAP_STAT) {
+                StatsHandler.playerStats.isMaxIntelligence = true;
+            }
         } else {
-            return 6;
+            StatsHandler.playerStats.intelligence = 6;
+            StatsHandler.playerStats.isMaxIntelligence = false;
         }
-    }
 
-    public static int getWisdom(Player player) {
-        CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
-        CompoundTag statTag = tag.getCompound(STATS_KEY);
+        // SABIDURIA
         if (statTag.contains(WISDOM_KEY)) {
-            return statTag.getInt(WISDOM_KEY);
+            StatsHandler.playerStats.wisdom = statTag.getInt(WISDOM_KEY);
+            if (StatsHandler.playerStats.wisdom >= StatsHandler.playerStats.CAP_STAT) {
+                StatsHandler.playerStats.isMaxWisdom = true;
+            }
         } else {
-            return 6;
+            StatsHandler.playerStats.wisdom = 6;
+            StatsHandler.playerStats.isMaxWisdom = false;
         }
     }
 }

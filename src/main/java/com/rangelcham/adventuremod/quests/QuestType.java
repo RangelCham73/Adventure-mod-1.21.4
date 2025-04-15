@@ -1,5 +1,5 @@
 package com.rangelcham.adventuremod.quests;
 
 public enum QuestType {
-    PRINCIPAL, SECUNDARY, HUNT, TRESURE, TASK, COMPLETE
+    PRINCIPAL, SECUNDARY, HUNT, TRESURE, TASK
 }

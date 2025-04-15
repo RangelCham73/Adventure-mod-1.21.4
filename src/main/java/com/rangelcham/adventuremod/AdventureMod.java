@@ -5,6 +5,7 @@ import com.rangelcham.adventuremod.custom.block.ModBlocks;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
 import com.rangelcham.adventuremod.custom.item.ModItems;
 import com.rangelcham.adventuremod.player.abilities.dash.DashKeybind;
+import com.rangelcham.adventuremod.player.stats.StatsKeyBind;
 import com.rangelcham.adventuremod.quests.QuestKeyBind;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -41,6 +42,7 @@ public class AdventureMod
         ModCreativeTab.register(modEventBus);
 
         modEventBus.addListener(QuestKeyBind::register);
+        modEventBus.addListener(StatsKeyBind::register);
         modEventBus.addListener(DashKeybind::register);
         modEventBus.addListener(this::addCreative);
 
