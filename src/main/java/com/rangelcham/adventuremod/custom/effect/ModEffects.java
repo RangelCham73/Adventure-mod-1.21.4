@@ -17,6 +17,9 @@ public class ModEffects {
     public static final Holder<MobEffect> DASH_EFFECT = MOB_EFFECTS.register("dash",
             () -> new DashEffect(MobEffectCategory.NEUTRAL, 0x0));
 
+    public static final Holder<MobEffect> FUSION_SHARD_EFFECT = MOB_EFFECTS.register("fusionshard",
+            () -> new FusionEffect(MobEffectCategory.NEUTRAL, 0x0));
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

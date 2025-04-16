@@ -1,10 +1,8 @@
 package com.rangelcham.adventuremod.custom.effect;
 
-import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
+import com.rangelcham.adventuremod.player.abilities.doublejump.DoubleJumpHandler;
 import com.rangelcham.adventuremod.nbt.PlayerAbilityHandler;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
