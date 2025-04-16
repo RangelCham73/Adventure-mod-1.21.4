@@ -4,10 +4,10 @@ import com.rangelcham.adventuremod.custom.ModCreativeTab;
 import com.rangelcham.adventuremod.custom.block.ModBlocks;
 import com.rangelcham.adventuremod.custom.effect.ModEffects;
 import com.rangelcham.adventuremod.custom.item.ModItems;
-import com.rangelcham.adventuremod.dash.DashHandler;
-import com.rangelcham.adventuremod.dash.DashKeybind;
-import com.rangelcham.adventuremod.doublejump.DoubleJumpHandler;
-import com.rangelcham.adventuremod.nbt.PlayerEventHandler;
+import com.rangelcham.adventuremod.player.abilities.dash.DashKeybind;
+import com.rangelcham.adventuremod.player.stats.StatsKeyBind;
+import com.rangelcham.adventuremod.quests.QuestKeyBind;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -41,6 +41,8 @@ public class AdventureMod
         ModBlocks.register(modEventBus);
         ModCreativeTab.register(modEventBus);
 
+        modEventBus.addListener(QuestKeyBind::register);
+        modEventBus.addListener(StatsKeyBind::register);
         modEventBus.addListener(DashKeybind::register);
         modEventBus.addListener(this::addCreative);
 
