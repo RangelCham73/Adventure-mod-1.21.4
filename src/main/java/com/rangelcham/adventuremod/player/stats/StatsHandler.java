@@ -1,6 +1,7 @@
 package com.rangelcham.adventuremod.player.stats;
 
 import com.rangelcham.adventuremod.AdventureMod;
+import com.rangelcham.adventuremod.player.ModPlayer;
 import com.rangelcham.adventuremod.quests.Quest;
 import com.rangelcham.adventuremod.quests.QuestKeyBind;
 import com.rangelcham.adventuremod.quests.QuestScreen;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 @EventBusSubscriber(modid = AdventureMod.MODID)
 public class StatsHandler {
-    public static PlayerStats playerStats = new PlayerStats();
+    public static ModPlayer modPlayer = new ModPlayer();
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Pre event) {
@@ -28,7 +29,7 @@ public class StatsHandler {
             Minecraft mc = Minecraft.getInstance();
 
             if (mc.screen == null) {
-                StatsScreen screen = new StatsScreen(playerStats);
+                StatsScreen screen = new StatsScreen(modPlayer.stats);
                 mc.setScreen(screen);
             }
         }

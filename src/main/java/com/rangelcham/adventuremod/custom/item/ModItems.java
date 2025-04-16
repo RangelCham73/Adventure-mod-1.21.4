@@ -62,6 +62,26 @@ public class ModItems {
             )
     );
 
+    public static final DeferredItem<Item> FUSION_SHARD = ITEMS.register(
+            "fusion_shard",
+            () -> new Item(new Item.Properties()
+                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse("adventuremod:fusion_shard")))
+                    .component(
+                            DataComponents.CONSUMABLE,
+                            Consumable.builder()
+                                    .consumeSeconds(2f)
+                                    .animation(ItemUseAnimation.EAT)
+                                    .sound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.AMETHYST_CLUSTER_BREAK))
+                                    .soundAfterConsume(SoundEvents.BREEZE_WIND_CHARGE_BURST)
+                                    .hasConsumeParticles(false)
+                                    .onConsume(
+                                            new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(ModEffects.FUSION_SHARD_EFFECT, 1, 0))
+                                    )
+                                    .build()
+                    )
+            )
+    );
+
     public static final DeferredItem<Item> BLUECRYSTAL_BLOCK_ITEM = ITEMS.register("bluecrystal_block",
             () -> new BlockItem(ModBlocks.BLUE_CRYSTAL.get(), new Item.Properties()
                     .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.parse(AdventureMod.MODID+ ":bluecrystal_block")))));

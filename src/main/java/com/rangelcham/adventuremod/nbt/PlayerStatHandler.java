@@ -11,20 +11,36 @@ import net.minecraft.world.entity.player.Player;
 
 public class PlayerStatHandler {
     private static final String STATS_KEY = "stats";
+    private static final String LEVEL_KEY = "level";
+    private static final String STAT_POINT_KEY = "statPoint";
+    private static final String USED_STAT_POINT_KEY = "usedStatPoint";
+    private static final String SPECIAL_POINT_KEY = "specialPoint";
+    private static final String USED_SPECIAL_POINT_KEY = "usedSpecialPoint";
+    private static final String ABILITY_POINT_KEY = "abilityPoint";
+    private static final String USED_ABILITY_POINT_KEY = "usedAbilityPoint";
+    private static final String EXPERIENCE_KEY = "experience";
     private static final String STRENGTH_KEY = "strength";
     private static final String DEXTERITY_KEY = "dexterity";
     private static final String CONSTITUTION_KEY = "constitution";
     private static final String INTELLIGENCE_KEY = "intelligence";
     private static final String WISDOM_KEY = "wisdom";
 
-    public static void saveStats(Player player, ModPlayer modPlayer) {
+    public static void saveStats(Player player) {
         CompoundTag tag = player.getPersistentData();
         CompoundTag statTag = new CompoundTag();
-        statTag.putInt(STRENGTH_KEY, modPlayer.stats.strength);
-        statTag.putInt(DEXTERITY_KEY, modPlayer.stats.dexterity);
-        statTag.putInt(CONSTITUTION_KEY, modPlayer.stats.constitution);
-        statTag.putInt(INTELLIGENCE_KEY, modPlayer.stats.intelligence);
-        statTag.putInt(WISDOM_KEY, modPlayer.stats.wisdom);
+        statTag.putInt(LEVEL_KEY, StatsHandler.modPlayer.level);
+        statTag.putInt(STAT_POINT_KEY, StatsHandler.modPlayer.statPoints);
+        statTag.putInt(USED_STAT_POINT_KEY, StatsHandler.modPlayer.usedStatPoints);
+        statTag.putInt(SPECIAL_POINT_KEY, StatsHandler.modPlayer.specialStatPoints);
+        statTag.putInt(USED_SPECIAL_POINT_KEY, StatsHandler.modPlayer.usedSpecialStatPoints);
+        statTag.putInt(ABILITY_POINT_KEY, StatsHandler.modPlayer.abilityPoints);
+        statTag.putInt(USED_ABILITY_POINT_KEY, StatsHandler.modPlayer.usedAbilityPoints);
+        statTag.putInt(EXPERIENCE_KEY, StatsHandler.modPlayer.experiencePoints);
+        statTag.putInt(STRENGTH_KEY, StatsHandler.modPlayer.stats.strength);
+        statTag.putInt(DEXTERITY_KEY, StatsHandler.modPlayer.stats.dexterity);
+        statTag.putInt(CONSTITUTION_KEY, StatsHandler.modPlayer.stats.constitution);
+        statTag.putInt(INTELLIGENCE_KEY, StatsHandler.modPlayer.stats.intelligence);
+        statTag.putInt(WISDOM_KEY, StatsHandler.modPlayer.stats.wisdom);
         tag.put(STATS_KEY, statTag);
         player.getPersistentData().put(STATS_KEY, statTag);
     }
@@ -33,59 +49,115 @@ public class PlayerStatHandler {
         CompoundTag tag = player.getPersistentData();
         CompoundTag statTag = tag.getCompound(STATS_KEY);
 
+        // NIVEL
+        if (statTag.contains(LEVEL_KEY)) {
+            StatsHandler.modPlayer.level = statTag.getInt(LEVEL_KEY);
+        } else {
+            StatsHandler.modPlayer.level = 1;
+        }
+
+        // PUNTOS DE ATRIBUTO
+        if (statTag.contains(STAT_POINT_KEY)) {
+            StatsHandler.modPlayer.statPoints = statTag.getInt(STAT_POINT_KEY);
+        } else {
+            StatsHandler.modPlayer.statPoints = 0;
+        }
+
+        // PUNTOS DE ATRIBUTO USADOS
+        if (statTag.contains(USED_STAT_POINT_KEY)) {
+            StatsHandler.modPlayer.usedStatPoints = statTag.getInt(USED_STAT_POINT_KEY);
+        } else {
+            StatsHandler.modPlayer.usedStatPoints = 0;
+        }
+
+        // PUNTOS ESPECIALES
+        if (statTag.contains(SPECIAL_POINT_KEY)) {
+            StatsHandler.modPlayer.specialStatPoints = statTag.getInt(SPECIAL_POINT_KEY);
+        } else {
+            StatsHandler.modPlayer.specialStatPoints = 0;
+        }
+
+        // PUNTOS ESPECIALES USADOS
+        if (statTag.contains(USED_SPECIAL_POINT_KEY)) {
+            StatsHandler.modPlayer.usedSpecialStatPoints = statTag.getInt(USED_SPECIAL_POINT_KEY);
+        } else {
+            StatsHandler.modPlayer.usedSpecialStatPoints = 0;
+        }
+
+        // PUNTOS DE HABILIDAD
+        if (statTag.contains(ABILITY_POINT_KEY)) {
+            StatsHandler.modPlayer.abilityPoints = statTag.getInt(ABILITY_POINT_KEY);
+        } else {
+            StatsHandler.modPlayer.abilityPoints = 0;
+        }
+
+        // PUNTOS DE HABILIDAD USADOS
+        if (statTag.contains(USED_ABILITY_POINT_KEY)) {
+            StatsHandler.modPlayer.usedAbilityPoints = statTag.getInt(USED_ABILITY_POINT_KEY);
+        } else {
+            StatsHandler.modPlayer.usedAbilityPoints = 0;
+        }
+
+        // EXPERIENCIA
+        if (statTag.contains(EXPERIENCE_KEY)) {
+            StatsHandler.modPlayer.experiencePoints = statTag.getInt(EXPERIENCE_KEY);
+        } else {
+            StatsHandler.modPlayer.experiencePoints = 0;
+        }
+
         // FUERZA
         if (statTag.contains(STRENGTH_KEY)) {
-            StatsHandler.playerStats.strength = statTag.getInt(STRENGTH_KEY);
-            if (StatsHandler.playerStats.strength >= StatsHandler.playerStats.CAP_STAT) {
-                StatsHandler.playerStats.isMaxStrength = true;
+            StatsHandler.modPlayer.stats.strength = statTag.getInt(STRENGTH_KEY);
+            if (StatsHandler.modPlayer.stats.strength >= StatsHandler.modPlayer.stats.CAP_STAT) {
+                StatsHandler.modPlayer.stats.isMaxStrength = true;
             }
         } else {
-            StatsHandler.playerStats.strength = 6;
-            StatsHandler.playerStats.isMaxStrength = false;
+            StatsHandler.modPlayer.stats.strength = 6;
+            StatsHandler.modPlayer.stats.isMaxStrength = false;
         }
 
         // DESTREZA
         if (statTag.contains(DEXTERITY_KEY)) {
-            StatsHandler.playerStats.dexterity = statTag.getInt(DEXTERITY_KEY);
-            if (StatsHandler.playerStats.dexterity >= StatsHandler.playerStats.CAP_STAT) {
-                StatsHandler.playerStats.isMaxDexterity = true;
+            StatsHandler.modPlayer.stats.dexterity = statTag.getInt(DEXTERITY_KEY);
+            if (StatsHandler.modPlayer.stats.dexterity >= StatsHandler.modPlayer.stats.CAP_STAT) {
+                StatsHandler.modPlayer.stats.isMaxDexterity = true;
             }
         } else {
-            StatsHandler.playerStats.dexterity = 6;
-            StatsHandler.playerStats.isMaxDexterity = false;
+            StatsHandler.modPlayer.stats.dexterity = 6;
+            StatsHandler.modPlayer.stats.isMaxDexterity = false;
         }
 
         // CONSTITUCION
         if (statTag.contains(CONSTITUTION_KEY)) {
-            StatsHandler.playerStats.constitution = statTag.getInt(CONSTITUTION_KEY);
-            if (StatsHandler.playerStats.constitution >= StatsHandler.playerStats.CAP_STAT) {
-                StatsHandler.playerStats.isMaxConstitution = true;
+            StatsHandler.modPlayer.stats.constitution = statTag.getInt(CONSTITUTION_KEY);
+            if (StatsHandler.modPlayer.stats.constitution >= StatsHandler.modPlayer.stats.CAP_STAT) {
+                StatsHandler.modPlayer.stats.isMaxConstitution = true;
             }
         } else {
-            StatsHandler.playerStats.constitution = 6;
-            StatsHandler.playerStats.isMaxConstitution = false;
+            StatsHandler.modPlayer.stats.constitution = 6;
+            StatsHandler.modPlayer.stats.isMaxConstitution = false;
         }
 
         // INTELIGENCIA
         if (statTag.contains(INTELLIGENCE_KEY)) {
-            StatsHandler.playerStats.intelligence = statTag.getInt(INTELLIGENCE_KEY);
-            if (StatsHandler.playerStats.intelligence >= StatsHandler.playerStats.CAP_STAT) {
-                StatsHandler.playerStats.isMaxIntelligence = true;
+            StatsHandler.modPlayer.stats.intelligence = statTag.getInt(INTELLIGENCE_KEY);
+            if (StatsHandler.modPlayer.stats.intelligence >= StatsHandler.modPlayer.stats.CAP_STAT) {
+                StatsHandler.modPlayer.stats.isMaxIntelligence = true;
             }
         } else {
-            StatsHandler.playerStats.intelligence = 6;
-            StatsHandler.playerStats.isMaxIntelligence = false;
+            StatsHandler.modPlayer.stats.intelligence = 6;
+            StatsHandler.modPlayer.stats.isMaxIntelligence = false;
         }
 
         // SABIDURIA
         if (statTag.contains(WISDOM_KEY)) {
-            StatsHandler.playerStats.wisdom = statTag.getInt(WISDOM_KEY);
-            if (StatsHandler.playerStats.wisdom >= StatsHandler.playerStats.CAP_STAT) {
-                StatsHandler.playerStats.isMaxWisdom = true;
+            StatsHandler.modPlayer.stats.wisdom = statTag.getInt(WISDOM_KEY);
+            if (StatsHandler.modPlayer.stats.wisdom >= StatsHandler.modPlayer.stats.CAP_STAT) {
+                StatsHandler.modPlayer.stats.isMaxWisdom = true;
             }
         } else {
-            StatsHandler.playerStats.wisdom = 6;
-            StatsHandler.playerStats.isMaxWisdom = false;
+            StatsHandler.modPlayer.stats.wisdom = 6;
+            StatsHandler.modPlayer.stats.isMaxWisdom = false;
         }
     }
 }

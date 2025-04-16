@@ -6,6 +6,8 @@ public class ModPlayer {
     public int level;
     public int statPoints;
     public int usedStatPoints;
+    public int specialStatPoints;
+    public int usedSpecialStatPoints;
     public int abilityPoints;
     public int usedAbilityPoints;
     public int experiencePoints;

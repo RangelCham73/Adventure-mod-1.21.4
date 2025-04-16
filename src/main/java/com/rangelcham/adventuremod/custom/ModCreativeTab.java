@@ -23,6 +23,7 @@ public class ModCreativeTab {
                         output.accept(ModBlocks.BLUE_CRYSTAL);
                         output.accept(ModItems.DOUBLEJUMP_CRYSTAL);
                         output.accept(ModItems.DASH_CRYSTAL);
+                        output.accept(ModItems.FUSION_SHARD);
                     }).build());
 
     public static void register(IEventBus eventBus) {
