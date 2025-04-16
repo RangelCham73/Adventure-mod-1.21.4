@@ -37,7 +37,6 @@ public class PlayerQuestHandler {
             i++;
         }
         tag.put(QUEST_KEY, questsTag);
-        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
     }
 
     public static void loadQuests(Player player) {
@@ -55,6 +54,5 @@ public class PlayerQuestHandler {
                 QuestsHandler.quests.put(Integer.parseInt(key), quest);
             }
         }
-        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(questsTag.getAsString())); // debug
     }
 }

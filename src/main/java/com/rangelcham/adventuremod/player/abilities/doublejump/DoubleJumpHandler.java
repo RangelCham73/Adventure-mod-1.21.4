@@ -14,6 +14,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @EventBusSubscriber(modid = AdventureMod.MODID)
 public class DoubleJumpHandler {
+
     private static boolean isInAir = false;
     private static boolean canDoubleJump = false;
     private static boolean jumpReleased = true;
@@ -22,52 +23,56 @@ public class DoubleJumpHandler {
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Pre event) {
-        if (unlockedDoubleJump) {
-            if (!(event.getEntity() instanceof LocalPlayer player)) return;
+        if (!unlockedDoubleJump || !(event.getEntity() instanceof LocalPlayer player)) return;
 
-            if (!player.onGround() && !isInAir) {
-                isInAir = true;
-                canDoubleJump = true;
-                jumpReleased = false;
-            }
+        boolean isJumpKeyDown = Minecraft.getInstance().options.keyJump.isDown();
 
-            if (player.onGround()) {
-                isInAir = false;
-                canDoubleJump = false;
-                jumpReleased = true;
-                if (preventFallDamage) {
-                    player.fallDistance = 0.0F; // Reinicia la distancia de caída al aterrizar
-                    preventFallDamage = false;
-                }
-            }
+        if (player.onGround()) {
+            resetStateOnGround(player);
+        } else if (!isInAir) {
+            isInAir = true;
+            canDoubleJump = true;
+            jumpReleased = false;
+        }
 
-            if (!Minecraft.getInstance().options.keyJump.isDown()) {
-                jumpReleased = true;
-            }
-
-            if (canDoubleJump && jumpReleased && Minecraft.getInstance().options.keyJump.isDown()) {
-                performDoubleJump(player);
-                player.fallDistance = 0.0F;
-                preventFallDamage = true;
-                canDoubleJump = false;
-            }
+        if (!isJumpKeyDown) {
+            jumpReleased = true;
+        } else if (canDoubleJump && jumpReleased) {
+            performDoubleJump(player);
+            canDoubleJump = false;
+            preventFallDamage = true;
+            player.fallDistance = 0.0F;
         }
     }
 
-    public static void performDoubleJump(LocalPlayer player) {
-        Vec3 motion = player.getDeltaMovement();
-        player.setDeltaMovement(motion.x, 0.6, motion.z);
+    private static void resetStateOnGround(LocalPlayer player) {
+        isInAir = false;
+        canDoubleJump = false;
+        jumpReleased = true;
+        if (preventFallDamage) {
+            player.fallDistance = 0.0F;
+            preventFallDamage = false;
+        }
+    }
 
+    private static void performDoubleJump(LocalPlayer player) {
+        Vec3 currentMotion = player.getDeltaMovement();
+        player.setDeltaMovement(currentMotion.x, 0.6, currentMotion.z);
         player.playSound(SoundEvents.AMETHYST_BLOCK_BREAK, 1.0F, 1.0F);
 
+        double x = player.getX();
+        double y = player.getY();
+        double z = player.getZ();
+
         for (int i = 0; i < 25; i++) {
-            player.level().addParticle(ParticleTypes.END_ROD,
-                    player.getX(), player.getY(), player.getZ(),
-                    (Math.random() - 0.5) * 0.2, 0.2, (Math.random() - 0.5) * 0.2);
-            player.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.AMETHYST_CLUSTER.defaultBlockState()),
-                    player.getX(), player.getY(), player.getZ(),
-                    (Math.random() - 0.5) * 0.2, 0.2, (Math.random() - 0.5) * 0.2);
+            double dx = (Math.random() - 0.5) * 0.2;
+            double dz = (Math.random() - 0.5) * 0.2;
+
+            player.level().addParticle(ParticleTypes.END_ROD, x, y, z, dx, 0.2, dz);
+            player.level().addParticle(
+                    new BlockParticleOption(ParticleTypes.BLOCK, Blocks.AMETHYST_CLUSTER.defaultBlockState()),
+                    x, y, z, dx, 0.2, dz
+            );
         }
     }
-
 }

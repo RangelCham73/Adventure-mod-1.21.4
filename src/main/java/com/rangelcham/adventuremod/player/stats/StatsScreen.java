@@ -23,15 +23,19 @@ public class StatsScreen extends Screen {
     private void generateStatLines() {
         statLines.clear();
 
-        statLines.add(Component.literal("==== Atributos ====").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFD700)))); // Dorado
+        statLines.add(createStyledLine("==== Atributos ====", 0xFFD700)); // Dorado
 
-        addStatLine("Fuerza", stats.strength, stats.isMaxStrength);
-        addStatLine("Destreza", stats.dexterity, stats.isMaxDexterity);
-        addStatLine("Constitución", stats.constitution, stats.isMaxConstitution);
-        addStatLine("Inteligencia", stats.intelligence, stats.isMaxIntelligence);
-        addStatLine("Sabiduría", stats.wisdom, stats.isMaxWisdom);
+        addStatLine("Fuerza", stats.strength, stats.isMaxStat(stats.strength));
+        addStatLine("Destreza", stats.dexterity, stats.isMaxStat(stats.dexterity));
+        addStatLine("Constitución", stats.constitution, stats.isMaxStat(stats.constitution));
+        addStatLine("Inteligencia", stats.intelligence, stats.isMaxStat(stats.intelligence));
+        addStatLine("Sabiduría", stats.wisdom, stats.isMaxStat(stats.wisdom));
 
-        statLines.add(Component.literal("===================").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFD700))));
+        statLines.add(createStyledLine("===================", 0xFFD700));
+    }
+
+    private Component createStyledLine(String text, int color) {
+        return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)));
     }
 
     private void addStatLine(String name, int value, boolean isMax) {

@@ -1,12 +1,10 @@
 package com.rangelcham.adventuremod.quests;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.*;
+
 import net.minecraft.util.Mth;
 
 import java.util.ArrayList;
@@ -16,8 +14,18 @@ import java.util.List;
 public class QuestScreen extends Screen {
     private int scrollOffset = 0;
     private final List<Component> missionLines = new ArrayList<>();
-    private final int lineHeight = 12;
-    private final int paddingTop = 20;
+
+    private static final int LINE_HEIGHT = 12;
+    private static final int PADDING_TOP = 20;
+
+    // Colores constantes
+    private static final int COLOR_TITLE = 0xFFFF00;
+    private static final int COLOR_TITLE_LABEL = 0x00FFFF;
+    private static final int COLOR_DESC = 0xFFFFFF;
+    private static final int COLOR_DESC_LABEL = 0x0000FF;
+    private static final int COLOR_STEP_DONE = 0x00FF00;
+    private static final int COLOR_STEP_TODO = 0xFF0000;
+    private static final int COLOR_COMPLETE = 0xFFD700;
 
     public QuestScreen() {
         super(Component.literal("Misiones"));
@@ -26,7 +34,6 @@ public class QuestScreen extends Screen {
     @Override
     protected void init() {
         int centerX = this.width / 2;
-        int centerY = this.height / 2;
 
         this.addRenderableWidget(Button.builder(Component.literal("Cerrar"), b -> this.onClose())
                 .pos(centerX - 50, this.height - 30)
@@ -39,28 +46,25 @@ public class QuestScreen extends Screen {
         this.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
-        int y = paddingTop - scrollOffset;
+        int y = PADDING_TOP - scrollOffset;
         for (Component line : missionLines) {
-            if (y > -lineHeight && y < this.height) { // Optimiza: solo dibuja si se ve en pantalla
+            if (y + LINE_HEIGHT > 0 && y < this.height) {
                 guiGraphics.drawString(this.font, line, 20, y, 0xFFFFFF, false);
             }
-            y += lineHeight;
+            y += LINE_HEIGHT;
         }
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        int scrollStep = 10;
+        scrollOffset -= verticalAmount * 10;
 
-        scrollOffset -= verticalAmount * scrollStep;
-
-        int totalHeight = missionLines.size() * lineHeight;
-        int visibleHeight = this.height - paddingTop - 40;
+        int totalHeight = missionLines.size() * LINE_HEIGHT;
+        int visibleHeight = this.height - PADDING_TOP - 40;
 
         scrollOffset = Mth.clamp(scrollOffset, 0, Math.max(0, totalHeight - visibleHeight));
         return true;
     }
-
 
     @Override
     public boolean isPauseScreen() {
@@ -75,35 +79,34 @@ public class QuestScreen extends Screen {
 
             missionLines.add(Component.literal("----------------------"));
             missionLines.add(
-                    Component.literal("Misión: ")
-                            .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x00FFFF)))
-                            .append(Component.literal(quest.title).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFF00))))
+                    Component.literal("Mision: ")
+                            .withStyle(Style.EMPTY.withColor(TextColor.fromRgb(COLOR_TITLE_LABEL)))
+                            .append(Component.literal(quest.title).withStyle(Style.EMPTY.withColor(TextColor.fromRgb(COLOR_TITLE))))
             );
 
             missionLines.add(
                     Component.literal("Descripción: ")
-                            .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x0000FF)))
-                            .append(Component.literal(quest.description).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))))
+                            .withStyle(Style.EMPTY.withColor(TextColor.fromRgb(COLOR_DESC_LABEL)))
+                            .append(Component.literal(quest.description).withStyle(Style.EMPTY.withColor(TextColor.fromRgb(COLOR_DESC))))
             );
 
-            missionLines.add(Component.literal("Progreso:").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))));
+            missionLines.add(Component.literal("Progreso:")
+                    .withStyle(Style.EMPTY.withColor(TextColor.fromRgb(COLOR_DESC))));
 
-            for (int i = 0; i < quest.steps.length; i++) {
-                Component line = Component.literal("");
-                if (i < quest.currentStep) {
-                    line = ((net.minecraft.network.chat.MutableComponent) line).append(Component.literal("[X] ").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x00FF00))));
-                    line = ((net.minecraft.network.chat.MutableComponent) line).append(Component.literal(quest.steps[i]).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x00FF00))));
-                } else {
-                    line = ((net.minecraft.network.chat.MutableComponent) line).append(Component.literal("[ ] ").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFF0000))));
-                    line = ((net.minecraft.network.chat.MutableComponent) line).append(Component.literal(quest.steps[i]).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFF0000))));
-                }
-                missionLines.add(line);
+            for (int i = 0; i < quest.steps.size(); i++) {
+                boolean isDone = i < quest.currentStep;
+                String prefix = isDone ? "[X] " : "[ ] ";
+                int color = isDone ? COLOR_STEP_DONE : COLOR_STEP_TODO;
+
+                missionLines.add(Component.literal(prefix + quest.steps.get(i))
+                        .withStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))));
             }
 
             if (quest.isCompleted) {
                 missionLines.add(Component.literal("¡Misión completada!")
-                        .setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFD700))));
+                        .withStyle(Style.EMPTY.withColor(TextColor.fromRgb(COLOR_COMPLETE))));
             }
+
             missionLines.add(Component.literal("----------------------"));
             missionLines.add(Component.literal(""));
         }

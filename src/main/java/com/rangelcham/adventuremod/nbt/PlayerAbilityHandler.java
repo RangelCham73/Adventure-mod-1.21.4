@@ -16,18 +16,15 @@ public class PlayerAbilityHandler {
 
     public static void saveAbilities(Player player) {
         CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
         CompoundTag abilityTag = new CompoundTag();
-        abilityTag.putBoolean("hasDoubleJump", DoubleJumpHandler.unlockedDoubleJump);
-        abilityTag.putBoolean("hasDash", DashHandler.unlockedDash);
-        tag.put("abilities", abilityTag);
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
-        player.getPersistentData().put("abilities", abilityTag);
+        abilityTag.putBoolean(DOUBLE_JUMP_KEY, DoubleJumpHandler.unlockedDoubleJump);
+        abilityTag.putBoolean(DASH_KEY, DashHandler.unlockedDash);
+        tag.put(ABILITIES_KEY, abilityTag);
+        player.getPersistentData().put(ABILITIES_KEY, abilityTag);
     }
 
     public static void loadAbilities(Player player) {
         CompoundTag tag = player.getPersistentData();
-//        Minecraft.getInstance().gui.getChat().addMessage(Component.literal(tag.getAsString())); // debug
         CompoundTag abilityTag = tag.getCompound(ABILITIES_KEY);
         if (abilityTag.contains(DOUBLE_JUMP_KEY)) {
             boolean doubleJump = abilityTag.getBoolean(DOUBLE_JUMP_KEY);

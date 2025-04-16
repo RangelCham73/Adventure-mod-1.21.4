@@ -108,56 +108,26 @@ public class PlayerStatHandler {
         // FUERZA
         if (statTag.contains(STRENGTH_KEY)) {
             StatsHandler.modPlayer.stats.strength = statTag.getInt(STRENGTH_KEY);
-            if (StatsHandler.modPlayer.stats.strength >= StatsHandler.modPlayer.stats.CAP_STAT) {
-                StatsHandler.modPlayer.stats.isMaxStrength = true;
-            }
-        } else {
-            StatsHandler.modPlayer.stats.strength = 6;
-            StatsHandler.modPlayer.stats.isMaxStrength = false;
         }
 
         // DESTREZA
         if (statTag.contains(DEXTERITY_KEY)) {
             StatsHandler.modPlayer.stats.dexterity = statTag.getInt(DEXTERITY_KEY);
-            if (StatsHandler.modPlayer.stats.dexterity >= StatsHandler.modPlayer.stats.CAP_STAT) {
-                StatsHandler.modPlayer.stats.isMaxDexterity = true;
-            }
-        } else {
-            StatsHandler.modPlayer.stats.dexterity = 6;
-            StatsHandler.modPlayer.stats.isMaxDexterity = false;
         }
 
         // CONSTITUCION
         if (statTag.contains(CONSTITUTION_KEY)) {
             StatsHandler.modPlayer.stats.constitution = statTag.getInt(CONSTITUTION_KEY);
-            if (StatsHandler.modPlayer.stats.constitution >= StatsHandler.modPlayer.stats.CAP_STAT) {
-                StatsHandler.modPlayer.stats.isMaxConstitution = true;
-            }
-        } else {
-            StatsHandler.modPlayer.stats.constitution = 6;
-            StatsHandler.modPlayer.stats.isMaxConstitution = false;
         }
 
         // INTELIGENCIA
         if (statTag.contains(INTELLIGENCE_KEY)) {
             StatsHandler.modPlayer.stats.intelligence = statTag.getInt(INTELLIGENCE_KEY);
-            if (StatsHandler.modPlayer.stats.intelligence >= StatsHandler.modPlayer.stats.CAP_STAT) {
-                StatsHandler.modPlayer.stats.isMaxIntelligence = true;
-            }
-        } else {
-            StatsHandler.modPlayer.stats.intelligence = 6;
-            StatsHandler.modPlayer.stats.isMaxIntelligence = false;
         }
 
         // SABIDURIA
         if (statTag.contains(WISDOM_KEY)) {
             StatsHandler.modPlayer.stats.wisdom = statTag.getInt(WISDOM_KEY);
-            if (StatsHandler.modPlayer.stats.wisdom >= StatsHandler.modPlayer.stats.CAP_STAT) {
-                StatsHandler.modPlayer.stats.isMaxWisdom = true;
-            }
-        } else {
-            StatsHandler.modPlayer.stats.wisdom = 6;
-            StatsHandler.modPlayer.stats.isMaxWisdom = false;
         }
     }
 }

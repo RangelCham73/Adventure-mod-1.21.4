@@ -13,26 +13,28 @@ public class ModPlayer {
     public int experiencePoints;
     public PlayerStats stats;
 
-    private final int[] EXPERIENCE_REQUIREMENT = {100, 120, 140, 160, 180, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 1000, 1000, 1000, 1000, 1000, 1000};
+    // Usar un array de requisitos de experiencia constante
+    private static final int[] EXPERIENCE_REQUIREMENT = {
+            100, 120, 140, 160, 180, 200, 250, 300, 350, 400, 450, 500, 550,
+            600, 650, 700, 750, 800, 900, 1000, 1000, 1000, 1000, 1000, 1000
+    };
+
+    public ModPlayer() {
+        stats = new PlayerStats();
+    }
 
     public void giveExperience(int experience) {
-        int experienceAux = experiencePoints + experience;
-        int experienceRequired = EXPERIENCE_REQUIREMENT[level-1];
+        experiencePoints += experience;  // Sumar la experiencia directamente
 
-        if (experienceAux >= experienceRequired) {
-            levelUp();
-            experiencePoints += experience - experienceAux;
-        } else {
-            experiencePoints = experienceAux;
+        while (level < EXPERIENCE_REQUIREMENT.length && experiencePoints >= EXPERIENCE_REQUIREMENT[level - 1]) {
+            experiencePoints -= EXPERIENCE_REQUIREMENT[level - 1];  // Restar la experiencia utilizada para subir de nivel
+            levelUp();  // Subir de nivel
         }
     }
 
     public void levelUp() {
         level++;
-        if (level > 10) {
-            statPoints += 2;
-        } else {
-            statPoints += 1;
-        }
+        // Añadir puntos de estadísticas según el nivel
+        statPoints += (level > 20) ? 2 : 1;
     }
 }
