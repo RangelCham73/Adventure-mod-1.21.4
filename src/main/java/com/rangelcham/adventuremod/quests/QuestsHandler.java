@@ -23,7 +23,7 @@ public class QuestsHandler {
             "Principal",
             "Mata al jefe",
             QuestType.PRINCIPAL,
-            List.of("Habla con el mago", "Mata al jefe", "Recoge la recompensa"),
+            List.of("Habla con el", "Mata al jefe", "Recoge la recompensa"),
             0, 100, 0, 0,
             false, false
     );
