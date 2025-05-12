@@ -1,6 +1,8 @@
 package com.rangelcham.adventuremod.player;
 
 import com.rangelcham.adventuremod.player.stats.PlayerStats;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 
 public class ModPlayer {
     public int level;
@@ -36,5 +38,6 @@ public class ModPlayer {
         level++;
         // Añadir puntos de estadísticas según el nivel
         statPoints += (level > 20) ? 2 : 1;
+        Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Has subido al nivel " + level));
     }
 }
